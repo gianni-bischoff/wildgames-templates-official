@@ -36,8 +36,8 @@ properties:
     default: "VANILLA"
   - name: MEMORY
     env: MEMORY
-    rules: "int|min:512|max:32768"
-    default: "2048"
+    rules: "string|regex:^(\\d+)(M|G)$"
+    default: "2048M"
   - name: MAX_PLAYERS
     env: MAX_PLAYERS
     rules: "int|min:1|max:100"
