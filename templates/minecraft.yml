@@ -1,0 +1,52 @@
+slug: minecraft
+name: Minecraft
+tag: Java Edition
+image: itzg/minecraft-server:java17
+cmd: ""
+min_ram_mb: 1024
+min_cpu: 1
+supported_oses: [linux]
+
+ports:
+  - { label: game,  container: 25565, protocol: tcp, required: true }
+  - { label: query, container: 25565, protocol: udp, required: false }
+  - { label: rcon,  container: 25575, protocol: tcp, required: false }
+
+tiers:
+  - { name: klein,    ram_mb: 2048, cpu: 2, slots:  4, hourly_credit: 3.0 }
+  - { name: standard, ram_mb: 4096, cpu: 4, slots:  8, hourly_credit: 6.0 }
+  - { name: gross,    ram_mb: 8192, cpu: 6, slots: 20, hourly_credit: 10.0 }
+
+properties:
+  - name: EULA
+    env: EULA
+    rules: "required|bool|accepted"
+    default: "false"
+  - name: SERVER_NAME
+    env: SERVER_NAME
+    rules: "string|maxlen:50"
+    default: "Minecraft Server"
+  - name: VERSION
+    env: VERSION
+    rules: "string|regex:^(LATEST|LATEST_SNAPSHOT|1\\.(\\d+)(\\.(\\d+))?)$"
+    default: "LATEST"
+  - name: TYPE
+    env: TYPE
+    rules: "required|enum:VANILLA,FORGE,PAPER,FABRIC,SPIGOT"
+    default: "VANILLA"
+  - name: MEMORY
+    env: MEMORY
+    rules: "int|min:512|max:32768"
+    default: "2048"
+  - name: MAX_PLAYERS
+    env: MAX_PLAYERS
+    rules: "int|min:1|max:100"
+    default: "20"
+  - name: ENABLE_RCON
+    env: ENABLE_RCON
+    rules: "bool"
+    default: "false"
+  - name: RCON_PASSWORD
+    env: RCON_PASSWORD
+    rules: "string|maxlen:32|required_with:ENABLE_RCON:true"
+    default: ""
