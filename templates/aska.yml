@@ -1,0 +1,67 @@
+slug: aska
+name: ASKA
+tag: Viking Survival Co-op
+image: jimbit0/aska-dedicated-server:unstable
+cmd: ""
+min_ram_mb: 4096
+min_cpu: 2
+supported_oses: [linux]
+
+ports:
+  - { label: game,    container: 27015, protocol: udp, required: true }
+  - { label: game2,   container: 27016, protocol: udp, required: true }
+
+tiers:
+  - { name: klein,    ram_mb: 6144,  cpu: 4, slots: 4,  hourly_credit: 8.0 }
+  - { name: standard, ram_mb: 8192,  cpu: 6, slots: 4,  hourly_credit: 12.0 }
+  - { name: gross,    ram_mb: 12288, cpu: 8, slots: 4,  hourly_credit: 16.0 }
+
+properties:
+  - name: ASKA_DISPLAY_NAME
+    env: ASKA_DISPLAY_NAME
+    rules: "required|string|maxlen:64"
+    default: "Wildblood ASKA Server"
+  - name: ASKA_SERVER_NAME
+    env: ASKA_SERVER_NAME
+    rules: "required|string|maxlen:32"
+    default: "wildblood-aska"
+  - name: ASKA_AUTH_TOKEN
+    env: ASKA_AUTH_TOKEN
+    rules: "required|string|maxlen:128"
+    default: ""
+  - name: ASKA_PASSWORD
+    env: ASKA_PASSWORD
+    rules: "string|maxlen:32"
+    default: ""
+  - name: ASKA_REGION
+    env: ASKA_REGION
+    rules: "enum:default,Asia,EU,US"
+    default: "EU"
+  - name: ASKA_MODE
+    env: ASKA_MODE
+    rules: "enum:normal,hard,creative"
+    default: "normal"
+  - name: ASKA_MAX_PLAYERS
+    env: ASKA_MAX_PLAYERS
+    rules: "int|min:1|max:4"
+    default: "4"
+  - name: ASKA_SEED
+    env: ASKA_SEED
+    rules: "string|maxlen:32"
+    default: ""
+  - name: ASKA_KEEP_WORLD_ALIVE
+    env: ASKA_KEEP_WORLD_ALIVE
+    rules: "bool"
+    default: "false"
+  - name: ASKA_AUTOSAVE_STYLE
+    env: ASKA_AUTOSAVE_STYLE
+    rules: "enum:every morning,frequent,manual"
+    default: "every morning"
+  - name: ASKA_WORKER_THREADS
+    env: ASKA_WORKER_THREADS
+    rules: "string|maxlen:4"
+    default: ""
+  - name: TZ
+    env: TZ
+    rules: "string|maxlen:32"
+    default: "UTC"

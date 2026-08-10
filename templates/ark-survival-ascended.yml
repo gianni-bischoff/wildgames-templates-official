@@ -1,0 +1,56 @@
+slug: ark-survival-ascended
+name: ARK Survival Ascended
+tag: Survival PvE/PvP UE5
+image: acekorneya/asa_server:2_0_latest
+cmd: ""
+min_ram_mb: 6144
+min_cpu: 4
+supported_oses: [linux]
+
+ports:
+  - { label: game,  container: 7777,  protocol: tcp, required: true }
+  - { label: game_udp, container: 7777, protocol: udp, required: true }
+  - { label: rcon,   container: 27020, protocol: tcp, required: false }
+
+tiers:
+  - { name: klein,    ram_mb: 10240, cpu: 4, slots: 20,  hourly_credit: 15.0 }
+  - { name: standard, ram_mb: 16384, cpu: 6, slots: 50,  hourly_credit: 22.0 }
+  - { name: gross,    ram_mb: 24576, cpu: 8, slots: 100, hourly_credit: 32.0 }
+
+properties:
+  - name: SESSION_NAME
+    env: SESSION_NAME
+    rules: "string|maxlen:64"
+    default: "Wildblood ARK Ascended Server"
+  - name: SERVER_ADMIN_PASSWORD
+    env: SERVER_ADMIN_PASSWORD
+    rules: "required|string|maxlen:32"
+    default: ""
+  - name: SERVER_PASSWORD
+    env: SERVER_PASSWORD
+    rules: "string|maxlen:32"
+    default: ""
+  - name: MAP_NAME
+    env: MAP_NAME
+    rules: "enum:TheIsland,ScorchedEarth,Aberration,Extinction,Genesis,Ragnarok,Center,Valguero"
+    default: "TheIsland"
+  - name: MAX_PLAYERS
+    env: MAX_PLAYERS
+    rules: "int|min:1|max:100"
+    default: "70"
+  - name: BATTLEEYE
+    env: BATTLEEYE
+    rules: "bool"
+    default: "false"
+  - name: RCON_ENABLED
+    env: RCON_ENABLED
+    rules: "bool"
+    default: "true"
+  - name: MOD_IDS
+    env: MOD_IDS
+    rules: "string|maxlen:500"
+    default: ""
+  - name: CLUSTER_ID
+    env: CLUSTER_ID
+    rules: "string|maxlen:64"
+    default: ""

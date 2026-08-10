@@ -1,0 +1,64 @@
+slug: project-zomboid
+name: Project Zomboid
+tag: Survival Horror
+image: indifferentbroccoli/projectzomboid-server-docker:latest
+cmd: ""
+min_ram_mb: 2048
+min_cpu: 1
+supported_oses: [linux]
+
+ports:
+  - { label: game,    container: 16261, protocol: udp, required: true }
+  - { label: game2,   container: 16262, protocol: udp, required: true }
+  - { label: rcon,    container: 27015, protocol: tcp, required: false }
+
+tiers:
+  - { name: klein,    ram_mb: 4096,  cpu: 2, slots: 8,   hourly_credit: 6.0 }
+  - { name: standard, ram_mb: 6144,  cpu: 4, slots: 16,  hourly_credit: 9.0 }
+  - { name: gross,    ram_mb: 8192,  cpu: 4, slots: 32,  hourly_credit: 12.0 }
+
+properties:
+  - name: SERVER_NAME
+    env: SERVER_NAME
+    rules: "string|maxlen:64"
+    default: "Wildblood Zomboid Server"
+  - name: ADMIN_USERNAME
+    env: ADMIN_USERNAME
+    rules: "required|string|maxlen:32"
+    default: "admin"
+  - name: ADMIN_PASSWORD
+    env: ADMIN_PASSWORD
+    rules: "required|string|maxlen:32"
+    default: ""
+  - name: MAX_PLAYERS
+    env: MAX_PLAYERS
+    rules: "int|min:1|max:100"
+    default: "16"
+  - name: MEMORY_XMX_GB
+    env: MEMORY_XMX_GB
+    rules: "int|min:2|max:16"
+    default: "4"
+  - name: MAP_NAMES
+    env: MAP_NAMES
+    rules: "string|maxlen:200"
+    default: "Muldraugh, KY"
+  - name: RCON_PASSWORD
+    env: RCON_PASSWORD
+    rules: "string|maxlen:32"
+    default: ""
+  - name: STEAM_VAC
+    env: STEAM_VAC
+    rules: "bool"
+    default: "true"
+  - name: PUBLIC_SERVER
+    env: PUBLIC_SERVER
+    rules: "bool"
+    default: "true"
+  - name: AUTOSAVE_INTERVAL
+    env: AUTOSAVE_INTERVAL
+    rules: "int|min:0|max:1440"
+    default: "15"
+  - name: PAUSE_ON_EMPTY
+    env: PAUSE_ON_EMPTY
+    rules: "bool"
+    default: "true"
