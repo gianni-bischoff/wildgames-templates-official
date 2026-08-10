@@ -7,6 +7,12 @@ min_ram_mb: 2048
 min_cpu: 1
 supported_oses: [linux]
 
+env:
+  PUID: "1000"
+  PGID: "1000"
+  USE_STEAM: "true"
+  UPDATE_ON_START: "true"
+
 ports:
   - { label: game,    container: 16261, protocol: udp, required: true }
   - { label: game2,   container: 16262, protocol: udp, required: true }

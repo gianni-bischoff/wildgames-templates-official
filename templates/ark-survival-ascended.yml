@@ -7,6 +7,14 @@ min_ram_mb: 6144
 min_cpu: 4
 supported_oses: [linux]
 
+env:
+  PUID: "1000"
+  PGID: "1000"
+  TZ: "UTC"
+  RANDOM_STARTUP_DELAY: "TRUE"
+  UPDATE_SERVER: "TRUE"
+  CHECK_FOR_UPDATE_INTERVAL: "24"
+
 ports:
   - { label: game,  container: 7777,  protocol: tcp, required: true }
   - { label: game_udp, container: 7777, protocol: udp, required: true }
